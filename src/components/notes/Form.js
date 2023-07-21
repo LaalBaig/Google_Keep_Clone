@@ -1,8 +1,8 @@
-import React, { useRef, useState, useContext } from 'react'
+import React, { useContext, useRef, useState,  } from 'react'
 import {Box, TextField, ClickAwayListener} from '@mui/material'
 import {styled} from '@mui/material/styles'
+import { DataContext } from '../../App'
 
-import { DataContext } from '../../context/DataProvider'
 
 const Container = styled(Box)
 `display : flex;
@@ -14,17 +14,12 @@ border-radius: 5px;
 min-height: 30px;
 `
 
-const note = {
-    heading: '',
-    body:''
-}
-
 function Form() {
     const [showTextField, setShowTextField] = useState(false)
     const containerRef = useRef();
-    const [addNote , setAddNote] = useState(note)
+    const {setNoteData}= useContext(DataContext)
+    const [addNote , setAddNote] = useState({heading: '',body:''})
 
-    // const [notes, setNotes] = useContext(DataContext)
 
     const displayField = () => {
         setShowTextField(true)
@@ -33,9 +28,24 @@ function Form() {
     const handleClickAway = () => {
         setShowTextField(false)
         containerRef.current.style.minHeight = '30px'
-        // setNotes(addNote)
+        if(addNote.body !== '' || addNote.heading !== ''){
+            setNoteData((prevArr) => ([
+            ...prevArr,{heading: addNote.heading,body:addNote.body}]
+            ))
+        setAddNote({heading: '',body:''})
+        
+        }
     }
+    const onTextChange = (e) => {
+        console.log(e)
+        //const changedNote = {...addNote, [e.target.name]: [e.target.value]}
+            setAddNote((pre)=>({
+                ...pre,
+                [e.target.name]: e.target.value
+            }))
 
+            
+    }
 
 
     return (
@@ -47,6 +57,9 @@ function Form() {
             variant='standard'
             InputProps={{disableUnderline: true}}
             style = {{marginBottom: 10,paddingLeft: '10px' }}
+            onChange={(e) => onTextChange(e)}
+            name='heading'
+            value={addNote.heading}
             /> }
             <TextField
             placeholder='Add a Note:'
@@ -55,6 +68,9 @@ function Form() {
             style = {{marginBottom: 10, paddingLeft: '10px'}}    
             onClick={displayField}
             multiline
+            onChange={(e) => onTextChange(e)}
+            name='body'
+            value={addNote.body}
             />
         </Container> 
         </ClickAwayListener>

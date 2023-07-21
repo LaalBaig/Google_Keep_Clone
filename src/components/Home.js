@@ -7,9 +7,10 @@ import { Box } from '@mui/material'
 
 function Home() {
     return (
-        <Box style={{display: 'flex', width: '100%'}}>
+        <Box style={{display: 'flex', width: '100%', flexDirection: 'column', marginLeft: '100px'}}>
             <MiniDrawer/>
             <Notes/>
+
         </Box>
     )
 }

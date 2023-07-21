@@ -1,17 +1,20 @@
+import { createContext, useState } from 'react';
 import './App.css';
 
 //material UI assets
-
 //components
 import Home from './components/Home';
-import DataProvider from './context/DataProvider';
+
+export const DataContext = createContext()
 
 function App() {
+  const [noteData, setNoteData] = useState([])
+
+
   return (
-    <DataProvider>
+    <DataContext.Provider value = {{noteData, setNoteData}}>
     <Home/>
-    </DataProvider>
+    </DataContext.Provider>
   );
 }
-
 export default App;
