@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import './App.css';
 
 //material UI assets
@@ -10,6 +10,11 @@ export const DataContext = createContext()
 function App() {
   const [noteData, setNoteData] = useState([])
 
+  useEffect(()=>{
+    const a = JSON.parse(localStorage.getItem('note'))
+console.log("storage data: ",a)
+    a && setNoteData(a) ;
+  }, [])
 
   return (
     <DataContext.Provider value = {{noteData, setNoteData}}>

@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState,  } from 'react'
+import React, { useContext, useEffect, useRef, useState,  } from 'react'
 import {Box, TextField, ClickAwayListener} from '@mui/material'
 import {styled} from '@mui/material/styles'
 import { DataContext } from '../../App'
@@ -15,10 +15,26 @@ min-height: 30px;
 `
 
 function Form() {
+    const noteTemplate = {heading: '',body:''}
+
+    // const getInitialState = () => {
+    //     const note = localStorage.getItem('note')
+    //   }
     const [showTextField, setShowTextField] = useState(false)
     const containerRef = useRef();
-    const {setNoteData}= useContext(DataContext)
-    const [addNote , setAddNote] = useState({heading: '',body:''})
+    const {noteData, setNoteData}= useContext(DataContext)
+    const [addNote , setAddNote] = useState(noteTemplate)
+
+    useEffect(()=>{
+        if(noteData?.length>0){
+            // console.log("yoooo",noteData)
+            localStorage.setItem('note', JSON.stringify(noteData))
+
+        }
+    },[noteData])
+    // useEffect(()=>{
+    //     setNoteData(getInitialState)
+    // },)
 
 
     const displayField = () => {

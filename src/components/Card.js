@@ -11,16 +11,16 @@ export default function BasicCard() {
   return (
     <>
     {
-            noteData.map((val,i)=>{
+            noteData?.length>0&&noteData?.map((val,i)=>{
             
-            return( <Card sx={{ maxWidth: 275 }}>
+            return( <Card key={i} sx={{ maxWidth: 275 }}>
                 <CardContent>
                   <Typography variant="h5" component="div">
-                    {noteData[noteData.length - 1 -i].heading}
+                    {noteData[noteData.length - 1-i].heading}
                   </Typography>
                   <br/>
                   <Typography variant="body2">
-                    {noteData[noteData.length - 1 -i].body}
+                    {noteData[noteData.length - 1-i].body}
                   </Typography>
                 </CardContent>
                 <CardActions>
