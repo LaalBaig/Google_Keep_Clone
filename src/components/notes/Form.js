@@ -15,18 +15,18 @@ min-height: 30px;
 `
 
 function Form() {
-    const noteTemplate = {heading: '',body:''}
+    const noteTemplate = {heading: '',body:'',date:''}
 
     // const getInitialState = () => {
     //     const note = localStorage.getItem('note')
     //   }
     const [showTextField, setShowTextField] = useState(false)
     const containerRef = useRef();
-    const {noteData, setNoteData}= useContext(DataContext)
+    const {noteData, setNoteData} = useContext(DataContext)
     const [addNote , setAddNote] = useState(noteTemplate)
 
     useEffect(()=>{
-        if(noteData?.length>0){
+        if(noteData?.length > 0){
             // console.log("yoooo",noteData)
             localStorage.setItem('note', JSON.stringify(noteData))
 
@@ -42,11 +42,15 @@ function Form() {
         containerRef.current.style.minHeight = '90px'
     }
     const handleClickAway = () => {
+        const date = new Date() 
+        const customDate = date.getHours()+ ':' + date.getMinutes()+ ":" + date.getSeconds();
         setShowTextField(false)
+            
+        //time wala over here
         containerRef.current.style.minHeight = '30px'
         if(addNote.body !== '' || addNote.heading !== ''){
             setNoteData((prevArr) => ([
-            ...prevArr,{heading: addNote.heading,body:addNote.body}]
+            ...prevArr,{heading: addNote.heading,body:addNote.body,date:customDate}]
             ))
         setAddNote({heading: '',body:''})
         

@@ -4,11 +4,16 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { DataContext } from '../App';
-import { useContext } from 'react';
+import { useContext,createContext } from 'react';
+
+export const TimeContext = createContext()
+
 
 export default function BasicCard() {
     const {noteData} = useContext(DataContext)
+    // const [time, setTime] = useState()
   return (
+
     <>
     {
             noteData?.length>0&&noteData?.map((val,i)=>{
@@ -23,8 +28,11 @@ export default function BasicCard() {
                     {noteData[noteData.length - 1-i].body}
                   </Typography>
                 </CardContent>
-                <CardActions>
+                <div style={{width: '100%'}}>
+                <CardActions sx = {{bottom:'0'}}>
+                  {noteData[noteData.length -1 - i].date}
                 </CardActions>
+                </div>
               </Card> )
         })
     

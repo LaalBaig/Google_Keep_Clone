@@ -12,12 +12,13 @@ function App() {
 
   useEffect(()=>{
     const a = JSON.parse(localStorage.getItem('note'))
-console.log("storage data: ",a)
+    console.log("storage data: ",a)
     a && setNoteData(a) ;
   }, [])
 
   return (
     <DataContext.Provider value = {{noteData, setNoteData}}>
+      
     <Home/>
     </DataContext.Provider>
   );
