@@ -10,19 +10,23 @@ import SignUp from './SignUp';
 
 
 function Home() {
+    const routes = [{
+        path: '/',
+        element: <SignIn/>,
+      }, {
+        path: '/mainpage',
+        element: <Box style={{display: 'flex', width: '100%', flexDirection: 'column', marginLeft: '100px'}}><MiniDrawer/><Notes/></Box>,
+      }, {
+        path: '/SignUp',
+        element: <SignUp/>,      
+      },  ];
+      const routeComponents = routes.map(({path, element}, key) => <Route exact path={path} element={element} key={key} />);
+
     return (
         <>
         <Routes>
-        <Route path = "/" element = {<SignIn/>}/>
-            
-        <Route path ="/mainpage" element = {<Box style={{display: 'flex', width: '100%', flexDirection: 'column', marginLeft: '100px'}}>
-            
-            <MiniDrawer/>
-            <Notes/>
-
-        </Box>}/>
-        <Route path = "/SignUp" element = {<SignUp/>}/>        
-        </Routes>    
+        {routeComponents}
+        </Routes>
         </>
     )
 }
